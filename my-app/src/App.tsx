@@ -1,18 +1,21 @@
 import './App.css'
-import {useEffect} from "react";
-import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import DefaultLayout from "./components/containers/default/DefaultLayout.tsx";
+import CategoryListPage from "./components/category/list/CategoryListPage.tsx";
+import CategoryCreatePage from "./components/category/create/CategoryCreatePage.tsx";
+
 
 function App() {
-    useEffect(() => {
-        axios.get("http://localhost:8084/")
-            .then(resp => {
-                console.log("--Server response--", resp.data);
-            });
-    },[]);
+
 
   return (
     <>
-      <h1>Привіт</h1>
+        <Routes>
+            <Route path={"/"} element={<DefaultLayout/>}>
+                <Route index element={<CategoryListPage />} />
+                <Route path={"create"} element={<CategoryCreatePage />} />
+            </Route>
+        </Routes>
     </>
   )
 }

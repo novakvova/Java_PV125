@@ -46,8 +46,8 @@ public class CategoryController {
                 .map(category -> ResponseEntity.ok().body(categoryMapper.categoryToItemDTO(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
-    @PutMapping("/category/{id}")
-    public ResponseEntity<CategoryItemDTO> updateCategory(@PathVariable int id, @RequestBody CategoryUpdateDTO dto) {
+    @PutMapping(value = "/category/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<CategoryItemDTO> updateCategory(@PathVariable int id, @ModelAttribute CategoryUpdateDTO dto) {
         Optional<CategoryEntity> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isPresent()) {
             var category = categoryOptional.get();

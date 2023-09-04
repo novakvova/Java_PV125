@@ -32,11 +32,11 @@ namespace WebRedis.Helpers
             }
         }
 
-        public void SetStrings(string key, string value)
+        public void SetStrings(string key, string value, TimeSpan timeout)
         {
             using (var redisClient = new RedisClient(_redisEndpoint))
             {
-                redisClient.SetValue(key, value);
+                redisClient.SetValue(key, value, timeout);
             }
         }
 

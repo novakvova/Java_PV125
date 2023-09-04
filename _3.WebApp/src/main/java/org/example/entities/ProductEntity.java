@@ -6,26 +6,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Data
 @Entity
-@Table(name="tbl_categories")
+@Table(name = "tbl_products")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryEntity {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="name", length = 250, nullable = false)
+    @Column(name = "name", length = 250, nullable = false)
     private String name;
-    @Column(name="image", length = 250, nullable = false)
-    private String image;
-    @Column(name="description", length = 250, nullable = false)
+    @Column(name = "description", length = 250, nullable = false)
     private String description;
     @JsonManagedReference
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<ProductEntity> products;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImageEntity> images;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
+    @Transient
+    private int categoryId;
 }

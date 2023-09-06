@@ -58,6 +58,21 @@
             <version>1.5.5.Final</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.20</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.sejda.webp-imageio/webp-imageio-sejda -->
+        <dependency>
+            <groupId>org.sejda.webp-imageio</groupId>
+            <artifactId>webp-imageio-sejda</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

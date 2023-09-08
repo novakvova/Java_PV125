@@ -5,7 +5,7 @@ import { IPorductCreate, IProductItem } from "../types";
 import { ICategoryItem } from "../../category/list/types";
 import http_common from "../../../http_common";
 import InputGroup from "../../../common/InputGroup.tsx";
-import {valueOf} from "axios";
+import SelectGroup from "../../../common/SelectGroup.tsx";
 
 const ProductCreatePage = () => {
     const navigator = useNavigate();
@@ -22,23 +22,18 @@ const ProductCreatePage = () => {
 
     useEffect(() => {
         http_common
-            .get<Array<ICategoryItem>>(`api/categories`)
+            .get<Array<ICategoryItem>>(`/category`)
             .then((resp) => {
                 console.log("resp = ", resp);
                 setCategories(resp.data);
             });
     }, []);
 
-    const content = categories.map((category) => (
-        <option key={category.id} value={category.id}>{category.name}</option>
-    ));
 
-    const onChangeHandler= (e: ChangeEvent<HTMLInputElement>| ChangeEvent<HTMLTextAreaElement>) => {
+
+    const onChangeHandler= (e: ChangeEvent<HTMLInputElement>| ChangeEvent<HTMLTextAreaElement>| ChangeEvent<HTMLSelectElement>) => {
         setModel({...model, [e.target.name]: e.target.value});
     }
-    const onChangeSelectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        setModel({ ...model, [e.target.name]: e.target.value });
-    };
 
     const onFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const {target} = e;
@@ -112,24 +107,10 @@ const ProductCreatePage = () => {
                         type={"number"}
                     />
 
-                    <div>
-                        <label
-                            htmlFor="countries"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
-                            Оберіть категорію
-                        </label>
-                        <select
-                            onChange={onChangeSelectHandler}
-                            id="category_id"
-                            name="category_id"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        >
-                            <option selected>Виберіть категорію</option>
-                            {content}
-
-                        </select>
-                    </div>
+                    <SelectGroup label={"Категорія"}
+                                 field={"category_id"}
+                                 onChange={onChangeHandler}
+                                 items={categories} />
 
                     <div>
                         <label

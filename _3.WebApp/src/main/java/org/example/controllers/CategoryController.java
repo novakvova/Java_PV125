@@ -31,8 +31,8 @@ public class CategoryController {
     @PostMapping(value = "/category", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CategoryItemDTO create(@ModelAttribute CategoryCreateDTO dto) {
         //String fileName = storageService.saveMultipartFile(dto.getImage());
-        String fileName = storageService.saveThumbnailator(dto.getImage(), FileSaveFormat.WEBP);
-
+       String fileName = storageService.saveThumbnailator(dto.getImage(), FileSaveFormat.WEBP);
+//        String fileName = storageService.saveThumbnailator(dto.getImage(), FileSaveFormat.JPG);
 
         CategoryEntity cat = CategoryEntity
                 .builder()
@@ -58,7 +58,7 @@ public class CategoryController {
             if(category.getImage()!=null && !category.getImage().isEmpty()) {
                 storageService.removeFile(category.getImage());
             }
-            String fileName = storageService.saveMultipartFile(dto.getImage());
+            String fileName = storageService.saveThumbnailator(dto.getImage(), FileSaveFormat.WEBP);
             category.setName(dto.getName());
             category.setDescription(dto.getDescription());
             category.setImage(fileName);

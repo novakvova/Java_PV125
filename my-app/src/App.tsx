@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import DefaultLayout from "./components/containers/default/DefaultLayout.tsx";
 import CategoryListPage from "./components/category/list/CategoryListPage.tsx";
 import CategoryCreatePage from "./components/category/create/CategoryCreatePage.tsx";
+import ProductCreatePage from "./components/product/create/ProductCreatePage.tsx";
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
             <Route path={"/"} element={<DefaultLayout/>}>
                 <Route index element={<CategoryListPage />} />
                 <Route path={"create"} element={<CategoryCreatePage />} />
+                <Route path={"product"}>
+                    <Route path={"create"} element={<ProductCreatePage/>} />
+                </Route>
             </Route>
         </Routes>
     </>

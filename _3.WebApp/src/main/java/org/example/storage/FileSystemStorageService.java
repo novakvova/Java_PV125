@@ -151,22 +151,15 @@ public class FileSystemStorageService implements StorageService {
     public String saveThumbnailator(MultipartFile file, FileSaveFormat format) {
         try {
             String extension = format.name().toLowerCase();
-            UUID uuid = UUID.randomUUID();
-            String randomFileName = uuid.toString() + "." + extension; //робимо ім'я файліка: унікальне ім'я + розширення
+            String randomFileName = UUID.randomUUID().toString() + "." + extension; //робимо ім'я файліка: унікальне ім'я + розширення
             int[] imageSize = {32, 150, 300, 600, 1200}; // масив розмірів фотографій
             BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-
             for (int size : imageSize) { // в циклі створюємо фотки кожного розміру
-                String directory = rootLocation.toString() + "/" + size + "_" + randomFileName; //створюємо папку де фотка буде зберігатися
-                ByteArrayOutputStream bout = new ByteArrayOutputStream();
+                String fileOutputSave = rootLocation.toString() + "/" + size + "_" + randomFileName; //створюємо папку де фотка буде зберігатися
                 Thumbnails.of(bufferedImage)
                         .size(size, size)
                         .outputFormat(extension)
-                        .toFile(directory);
-//                        .toOutputStream(bout);
-//                FileOutputStream out = new FileOutputStream(directory);
-//                out.write(bout.toByteArray()); //байти зберігаємо у фійлову систему на сервері
-//                out.close();
+                        .toFile(fileOutputSave);
             }
             return randomFileName;
         } catch (IOException e) {

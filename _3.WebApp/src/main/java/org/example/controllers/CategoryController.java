@@ -19,16 +19,17 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("api/categories")
 public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     private final StorageService storageService;
-    @GetMapping("/category")
+    @GetMapping()
     public ResponseEntity<List<CategoryItemDTO>> index() {
         List<CategoryItemDTO> items = categoryMapper.listCategoriesToItemDTO(categoryRepository.findAll());
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
-    @PostMapping(value = "/category", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CategoryItemDTO create(@ModelAttribute CategoryCreateDTO dto) {
         //String fileName = storageService.saveMultipartFile(dto.getImage());
        String fileName = storageService.saveThumbnailator(dto.getImage(), FileSaveFormat.WEBP);
@@ -43,14 +44,14 @@ public class CategoryController {
         categoryRepository.save(cat);
         return categoryMapper.categoryToItemDTO(cat);
     }
-    @GetMapping("/category/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<CategoryItemDTO> getCategoryById(@PathVariable int id) {
         Optional<CategoryEntity> categoryOptional = categoryRepository.findById(id);
         return categoryOptional
                 .map(category -> ResponseEntity.ok().body(categoryMapper.categoryToItemDTO(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
-    @PutMapping(value = "/category/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CategoryItemDTO> updateCategory(@PathVariable int id, @ModelAttribute CategoryUpdateDTO dto) {
         Optional<CategoryEntity> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isPresent()) {
@@ -70,7 +71,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
         Optional<CategoryEntity> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isPresent()) {

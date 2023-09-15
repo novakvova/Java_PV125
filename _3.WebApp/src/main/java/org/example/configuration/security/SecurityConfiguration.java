@@ -1,6 +1,7 @@
 package org.example.configuration.security;
 
 import lombok.RequiredArgsConstructor;
+import org.example.constants.Roles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -33,7 +34,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/webjars/**").permitAll()
                 .requestMatchers("/rest-api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/api/categories/**").permitAll()
+                .requestMatchers("/api/categories/**").hasAuthority(Roles.Admin)
 //                .requestMatchers(HttpMethod.POST,"/api/categories").hasAuthority(Roles.Admin)
 //                .requestMatchers(HttpMethod.GET,"/api/products").permitAll()
 //                .requestMatchers("/api/products/**").hasAuthority(Roles.Admin)

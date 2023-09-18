@@ -27,6 +27,7 @@ public class SecurityConfiguration {
                 .cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/account/**").permitAll()
+                .requestMatchers("/uploading/**").permitAll()
                 .requestMatchers("/files/**").permitAll()
                 .requestMatchers("/static/**").permitAll()
                 .requestMatchers("/swagger-resources/**").permitAll()
@@ -35,6 +36,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/rest-api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/api/categories/**").hasAuthority(Roles.Admin)
+                .requestMatchers("/api/products/**").hasAuthority(Roles.Admin)
 //                .requestMatchers(HttpMethod.POST,"/api/categories").hasAuthority(Roles.Admin)
 //                .requestMatchers(HttpMethod.GET,"/api/products").permitAll()
 //                .requestMatchers("/api/products/**").hasAuthority(Roles.Admin)
@@ -42,12 +44,10 @@ public class SecurityConfiguration {
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//                .logout()
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);//                .logout()
 //                .logoutUrl("/api/v1/auth/logout")
 //                .addLogoutHandler(logoutHandler)
 //                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-        ;
 
         return http.build();
     }

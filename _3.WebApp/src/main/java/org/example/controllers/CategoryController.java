@@ -28,7 +28,8 @@ public class CategoryController {
     private final StorageService storageService;
     @GetMapping()
     public ResponseEntity<List<CategoryItemDTO>> index() {
-        List<CategoryItemDTO> items = categoryMapper.listCategoriesToItemDTO(categoryRepository.findAll());
+        var list = categoryRepository.findAll();
+        List<CategoryItemDTO> items = categoryMapper.listCategoriesToItemDTO(list);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

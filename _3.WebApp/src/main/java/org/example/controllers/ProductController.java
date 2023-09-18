@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.example.dto.product.ProductCreateDTO;
 import org.example.dto.product.ProductItemDTO;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/products")
+@SecurityRequirement(name="my-api")
 public class ProductController {
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;

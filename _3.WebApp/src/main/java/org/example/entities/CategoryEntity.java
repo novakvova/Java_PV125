@@ -25,6 +25,8 @@ public class CategoryEntity {
     private String image;
     @Column(name="description", length = 250, nullable = false)
     private String description;
+    @Column(name="is_delete", nullable = false)
+    private boolean isDelete;
     @JsonManagedReference
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<ProductEntity> products;

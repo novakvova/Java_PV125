@@ -9,7 +9,7 @@ const CategoryListPage = () => {
 
     const getData = () => {
         http_common
-            .get<ICategoryItem[]>("/category")
+            .get<ICategoryItem[]>("/api/categories")
             .then((resp) => {
                 //console.log("Categories", resp.data);
                 setList(resp.data);

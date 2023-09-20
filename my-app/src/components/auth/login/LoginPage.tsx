@@ -37,6 +37,7 @@ function LoginPage() {
             );
             const { data } = result;
             const token = data.token;
+            http_common.defaults.headers.common["Authorization"]=`Bearer ${token}`;
             localStorage.token = token;
             const user = jwtDecode(token) as IUser;
             dispatch({
@@ -56,6 +57,9 @@ function LoginPage() {
 
     return (
         <>
+            <div className="mx-auto text-center">
+                <h1 className="text-3xl  font-bold text-black sm:text-4xl">Вхід</h1>
+            </div>
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}

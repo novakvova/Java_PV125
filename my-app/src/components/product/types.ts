@@ -1,9 +1,8 @@
-export interface IPorductCreate {
-    name: string,
-    description: string,
-    price: number,
-    category_id: number,
-    files: Array<File>,
+export interface IProductCreate {
+    name: string;
+    description: string;
+    categoryId: number | null;
+    images: File[];
 }
 
 export interface IProductItem {

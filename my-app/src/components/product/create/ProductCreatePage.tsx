@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import http_common from "../../../http_common.ts";
 import InputGroup from "../../../common/InputGroup.tsx";
-import TextAreaGroup from "../../../common/TextAreaGroup.tsx";
 import SelectGroup from "../../../common/SelectGroup.tsx";
 import ImageListGroup from "../../../common/ImageListGroup.tsx";
 import {IProductCreate} from "../types.ts";
+import EditorTiny from "../../../common/EditorTiny.tsx";
 
 const ProductCreate = () => {
     const [categories, setCategories] = useState<ICategory[]>([]);
@@ -91,15 +91,28 @@ const ProductCreate = () => {
                             touched={touched.name}
                             handleChange={handleChange}
                         ></InputGroup>
-                        <TextAreaGroup
-                            label="Description"
-                            field="description"
-                            handleChange={handleChange}
-                            error={errors.description}
-                            touched={touched.description}
-                            handleBlur={handleBlur}
-                            value={values.description}
-                        ></TextAreaGroup>
+                        {/*<TextAreaGroup*/}
+                        {/*    label="Description"*/}
+                        {/*    field="description"*/}
+                        {/*    handleChange={handleChange}*/}
+                        {/*    error={errors.description}*/}
+                        {/*    touched={touched.description}*/}
+                        {/*    handleBlur={handleBlur}*/}
+                        {/*    value={values.description}*/}
+                        {/*></TextAreaGroup>*/}
+
+                        <EditorTiny
+                            value={values.description} //Значення, яке ми вводимо в поле
+                            label="Опис" //Підпис для даного інпуту
+                            field="description" //Назва інпуту
+                            error={errors.description} //Якщо є помилка, то вона буде передаватися
+                            touched={touched.description} //Якщо натискалася кнопка Submit
+                            onEditorChange={(text: string) => {
+                                //Метод, який викликає сам компонет, коли в інпуті змінюється значення
+                                setFieldValue("description", text); //Текст, який в середині інпуту, записуємо у формік в поле description
+                            }}
+                        />
+
                         <SelectGroup
                             label="Category"
                             field="categoryId"

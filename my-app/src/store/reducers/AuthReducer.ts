@@ -1,4 +1,4 @@
-import { AuthUserActionType, IAuthUser, IUser } from "../../entities/Auth.ts";
+import {AuthUserActionType, IAuthUser, IUser} from "../../entities/Auth.ts";
 
 const initState: IAuthUser = {
     isAuth: false,

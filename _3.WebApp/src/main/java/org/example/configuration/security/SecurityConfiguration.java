@@ -26,6 +26,7 @@ public class SecurityConfiguration {
         http
                 .cors().and().csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/account/**").permitAll()
                         .requestMatchers("/uploading/**").permitAll()
                         .requestMatchers("/files/**").permitAll()

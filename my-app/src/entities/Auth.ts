@@ -25,6 +25,7 @@ export interface IRegister {
 export interface ILogin {
     email: string;
     password: string;
+    recaptchaToken: string;
 }
 
 export interface ILoginResult {

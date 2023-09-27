@@ -12,15 +12,19 @@ import http_common from "../../../http_common.ts";
 import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import * as Yup from "yup";
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 function LoginPage() {
+    const { executeRecaptcha } = useGoogleReCaptcha();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const initialValues: ILogin = {
         email: "",
         password: "",
+        recaptchaToken: ""
     };
+
 
     const loginSchema = Yup.object().shape({
         email: Yup.string().required("Email is required").email("Invalid email"),
@@ -31,6 +35,13 @@ function LoginPage() {
 
     const handleSubmit = async (values: ILogin) => {
         try {
+            if (!executeRecaptcha) {
+                //setBot(true);
+                alert("Ви бот :(");
+                return;
+            }
+            values.recaptchaToken = await executeRecaptcha();
+
             const result = await http_common.post<ILoginResult>(
                 "api/account/login",
                 values,

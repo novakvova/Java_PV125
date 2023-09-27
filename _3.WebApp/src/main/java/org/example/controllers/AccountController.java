@@ -21,6 +21,10 @@ public class AccountController {
     @PostMapping("login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto dto) {
         try {
+
+            var googleSecretKey = "6LctSFIoAAAAAAkT0xS6X6VknXkzp5RZBLPNtTHt";
+            //Перед перевіркою даних користувача відправити запит на гугл і переконатися, що гугл
+            //перевірив форму перед відправкою нам.
             var auth = service.login(dto);
             return ResponseEntity.ok(auth);
         }

@@ -31,3 +31,13 @@ export interface ILogin {
 export interface ILoginResult {
     token: string;
 }
+
+export interface LoginSuccessAction {
+    type: AuthUserActionType.LOGIN_USER,
+    payload: IUser
+}
+export interface LogoutUserAction {
+    type: AuthUserActionType.LOGOUT_USER
+}
+
+export type AuthUserActions = LoginSuccessAction | LogoutUserAction;

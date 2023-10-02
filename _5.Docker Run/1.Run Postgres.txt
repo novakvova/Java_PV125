@@ -1,0 +1,28 @@
+docker pull postgres
+
+docker images --all
+
+docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 postgres
+
+docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 -v d:/postgres/data/:/var/lib/postgresql/data postgres
+
+docker volume create pg_data
+
+docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 -v pg_data:/var/lib/postgresql/data postgres
+
+docker ps -a
+
+docker stop my-postgres-container
+docker rm my-postgres-container
+
+docker exec -it my-postgres-container psql -U postgres
+
+Using a Database Client (e.g., DBeaver, pgAdmin)
+Host/Address: localhost
+Port: 5632
+Database: postgres
+Username: postgres
+Password: qwerfahYOUhlsdf3783284fkasd
+
+
+

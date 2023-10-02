@@ -1,0 +1,63 @@
+wsl --update
+docker -v
+"C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
+
+Enable-WindowsOptionalFeature -Online -FeatureName $("Microsoft-Hyper-V", "Containers") -All
+
+https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux
+
+Switch to Linux Containers
+
+https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-7.0
+
+git clone https://github.com/dotnet/dotnet-docker
+
+cd dotnet-docker/samples/aspnetapp/aspnetapp
+
+dotnet run
+
+cd ..
+
+docker build -t aspnetapp .
+docker run -it --rm -p 5453:80 --name aspnetcore_sample aspnetapp
+
+http://localhsot:5453
+
+cd WebDocker
+
+docker build -t webdocker .
+docker run -it --rm -p 5453:80 --name webdocker_sample webdocker
+http://localhsot:5453
+
+--------------------------------
+docker ps
+docker ps -a
+
+docker ps -l
+docker images --all
+docker run -it --rm -p 9876:80 --name webdocker_sample webdocker
+
+docker login
+#docker tag local-image:tagname new-repo:tagname
+#docker push new-repo:tagname
+
+docker tag webdocker:latest novakvova/aspnet7.0:latest
+docker push novakvova/aspnet7.0:latest
+
+docker pull novakvova/aspnet7.0:latest
+docker run -it --rm -p 5453:80 --name testasp_sample novakvova/aspnet7.0
+docker run -d --restart=always --name carsale -p 5453:80 novakvova/aspnet7.0
+docker ps -a
+
+docker stop carsale
+docker rm carsale
+
+docker stop testasp_sample
+docker rm testasp_sample
+
+docker run -d --restart=always --name testasp_sample -p 5453:80 novakvova/aspnet7.0
+
+
+-----------------Run Laravel----------------
+docker compose up -d
+docker compose down

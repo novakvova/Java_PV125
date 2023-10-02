@@ -1,0 +1,20 @@
+mvn clean install
+
+docker build -t pv125_image .
+docker run -it --rm -p 8052:8080 --name pv125_container pv125_image
+
+docker run -d --restart=always -p 8052:8080 --name pv125_container pv125_image
+
+docker ps -a
+
+docker stop pv125_container
+docker rm pv125_container
+
+docker tag pv125_image:latest novakvova/pv125:latest
+docker push novakvova/pv125:latest
+
+docker pull novakvova/pv125:latest
+docker ps -a
+docker images --all
+
+docker run -d --restart=always -p 8052:8080 --name pv125_container novakvova/pv125

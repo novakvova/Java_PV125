@@ -1,0 +1,19 @@
+mvn -v
+
+mvn clean install
+
+java -jar target/pv125.jar
+
+docker build -t pv125-image .
+
+docker run -p 8090:8080 pv125-image
+
+username: novakvova
+password: G94CLTYirXME
+database: pv125
+host: ep-fancy-unit-161444.us-east-2.aws.neon.tech
+
+docker login
+docker images --all
+docker tag pv125-image:latest novakvova/java_pv125:latest
+docker push novakvova/java_pv125:latest

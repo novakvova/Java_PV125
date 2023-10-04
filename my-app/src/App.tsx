@@ -1,11 +1,11 @@
 import './App.css'
 import { Suspense, lazy, useEffect, useState } from 'react';
 import {Route, Routes} from "react-router-dom";
-import DefaultLayout from "./components/containers/default/DefaultLayout.tsx";
-import CategoryListPage from "./components/category/list/CategoryListPage.tsx";
-import CategoryCreatePage from "./components/category/create/CategoryCreatePage.tsx";
-import ProductCreatePage from "./components/product/create/ProductCreatePage.tsx";
-import Login from "./components/auth/login";
+
+// import CategoryListPage from "./components/category/list/CategoryListPage.tsx";
+// import CategoryCreatePage from "./components/category/create/CategoryCreatePage.tsx";
+// import ProductCreatePage from "./components/product/create/ProductCreatePage.tsx";
+
 import { Toaster } from 'react-hot-toast';
 
 import ECommerce from './pages/Dashboard/ECommerce';
@@ -14,7 +14,10 @@ import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import routes from './routes';
 
+const DefaultLayout = lazy(() => import('./components/containers/default/DefaultLayout.tsx'));
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
+const Login = lazy(() => import('./components/auth/login'));
+const Register = lazy(() => import('./components/auth/register/RegisterPage.tsx'));
 
 function App() {
 
@@ -32,12 +35,30 @@ function App() {
             <Toaster position='top-right' reverseOrder={false} containerClassName='overflow-auto'/>
 
             <Routes>
+
+
                 <Route path="/auth/signin" element={<SignIn />} />
                 <Route path="/auth/signup" element={<SignUp />} />
-                <Route element={<AdminLayout />}>
+
+                <Route path={"/"} element={<DefaultLayout/>}>
+                    <Route path={"login"}
+                           element={
+                               <Suspense fallback={<Loader/>}>
+                                   <Login/>
+                               </Suspense>
+                           }/>
+                    <Route path={"register"}
+                           element={
+                               <Suspense fallback={<Loader/>}>
+                                   <Register/>
+                               </Suspense>
+                           }/>
+                </Route>
+                <Route path={"/admin"} element={<AdminLayout />}>
                     <Route index element={<ECommerce />} />
-                    {routes.map(({ path, component: Component }) => (
+                    {routes.map(({ path, component: Component }, index) => (
                         <Route
+                            key={index}
                             path={path}
                             element={
                                 <Suspense fallback={<Loader />}>

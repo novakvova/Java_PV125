@@ -5,6 +5,7 @@ docker images --all
 docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 postgres
 
 docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 -v d:/postgres/data/:/var/lib/postgresql/data postgres
+docker run --name my-postgres-container -e POSTGRES_PASSWORD=qwerfahYOUhlsdf3783284fkasd -d -p 5632:5432 -v /var/postgres/:/var/lib/postgresql/data postgres
 
 docker volume create pg_data
 

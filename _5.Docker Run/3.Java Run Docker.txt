@@ -17,4 +17,4 @@ docker pull novakvova/pv125:latest
 docker ps -a
 docker images --all
 
-docker run -d --restart=always -p 8052:8080 --name pv125_container novakvova/pv125
+docker run -d --restart=always -p 8059:8080 --name pv125_container novakvova/pv125

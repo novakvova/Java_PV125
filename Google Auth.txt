@@ -1,0 +1,5 @@
+Client ID
+415933673193-80hgknlq09c8g15av69ka777n6ngvolo.apps.googleusercontent.com
+
+Cleint Secret
+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
